@@ -13,10 +13,11 @@ def mask_account_card(user_account_or_cart: str, final_info=None) -> str:
 
     return final_info
 
-def get_date(date: str) -> str:
-    date_in_y_m_d = data_date_time[0:data_date_time.index("T")]
-    date_in_y_m_d_split = date_in_y_m_d.split("-")
-    date_in_d_m_y = date_in_y_m_d_split[2], date_in_y_m_d_split[1], date_in_y_m_d_split[0]
+def get_date(date: str, date_in_d_m_y=None) -> str:
+    index_T = data_date_time.index("T")
+    date_in_y_m_d = data_date_time[0:index_T]
+    date_in_y_m_d_splited = date_in_y_m_d.split("-")
+    date_in_d_m_y = date_in_y_m_d_splited[2], date_in_y_m_d_splited[1], date_in_y_m_d_splited[0]
     date_in_d_m_y_jointed = "-".join(date_in_d_m_y)
     return date_in_d_m_y_jointed
 

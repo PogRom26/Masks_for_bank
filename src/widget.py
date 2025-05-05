@@ -10,5 +10,3 @@ def mask_account_card(user_account_or_cart: str, final_info=None) -> str:
         final_info = get_mask_card_number(user_account_or_cart)
 
     return final_info
-
-print(mask_account_card("Maestro 1596837868705199"))

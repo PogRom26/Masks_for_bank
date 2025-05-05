@@ -21,4 +21,3 @@ def get_date(date: str) -> str:
     return date_in_d_m_y_jointed
 
 data_date_time = "2024-03-11T02:26:18.671407"
-print(get_date(data_date_time))

@@ -2,14 +2,14 @@ def get_mask_card_number(card_numbers: str) -> str:
     """принимает на вход номер карты и возвращает ее маску
     Видны первые 6 цифр и последние 4 цифры, остальные символы отображаются звездочками
     """
-    card_numbers_masked = card_numbers[0:6] + "*" * 6 + card_numbers[-4:]
+    card_numbers_masked = card_numbers[-16:-10] + "*" * 6 + card_numbers[-4:]
 
-    first_quad = card_numbers_masked[0:4]
-    second_quad = card_numbers_masked[4:8]
-    third_quad = card_numbers_masked[8:12]
-    fours_quad = card_numbers_masked[12:16]
+    first_num_quad = card_numbers_masked[-16:-12]
+    second_num_quad = card_numbers_masked[-12:-8]
+    third_num_quad = card_numbers_masked[-8:-4]
+    fours_num_quad = card_numbers_masked[-4:]
 
-    card_numbers_masked_list = [first_quad, second_quad, third_quad, fours_quad]
+    card_numbers_masked_list = [first_num_quad, second_num_quad, third_num_quad, fours_num_quad]
 
     card_numbers_masked_with_space = " ".join(card_numbers_masked_list)
 

@@ -1,3 +1,5 @@
+from operator import index
+
 from src.masks import get_mask_account, get_mask_card_number
 
 
@@ -10,3 +12,14 @@ def mask_account_card(user_account_or_cart: str, final_info=None) -> str:
         final_info = get_mask_card_number(user_account_or_cart)
 
     return final_info
+
+def get_date(date: str, date_in_d_m_y=None) -> str:
+    index_T = data_date_time.index("T")
+    date_in_y_m_d = data_date_time[0:index_T]
+    date_in_y_m_d_splited = date_in_y_m_d.split("-")
+    date_in_d_m_y = date_in_y_m_d_splited[2], date_in_y_m_d_splited[1], date_in_y_m_d_splited[0]
+    date_in_d_m_y_jointed = "-".join(date_in_d_m_y)
+    return date_in_d_m_y_jointed
+
+data_date_time = "2024-03-11T02:26:18.671407"
+print(get_date(data_date_time))

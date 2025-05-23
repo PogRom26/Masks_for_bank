@@ -17,7 +17,7 @@ def get_date(date: str, date_in_d_m_y=None) -> str:
     и возвращает строку с датой в формате
     "ДД.ММ.ГГГГ"""
 
-    date_in_y_m_d = data_date_time[0 : data_date_time.index("T")]
+    date_in_y_m_d = data_date_time[0: data_date_time.index("T")]
     date_in_y_m_d_split = date_in_y_m_d.split("-")
     date_in_d_m_y = date_in_y_m_d_split[2], date_in_y_m_d_split[1], date_in_y_m_d_split[0]
     date_in_d_m_y_jointed = "-".join(date_in_d_m_y)

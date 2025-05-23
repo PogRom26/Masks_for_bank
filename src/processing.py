@@ -12,11 +12,10 @@ def filter_by_state(list_with_dictions: list, key="EXECUTED") -> list:
     return list_with_correct_key
 
 
-def sort_by_date(list_with_dictions: list, key=lambda x: x["date"]) -> list:
+def sort_by_date(list_with_dictions: list, key=lambda x: x["date"], list_with_dictionaries=None) -> list:
     """Принимает список словарей и необязательный параметр, задающий порядок сортировки (по умолчанию — убывание).
     Функция должна возвращать новый список, отсортированный по дате (date)."""
 
     sorted_list = sorted(list_with_dictionaries, key=key, reverse=True)
 
     return sorted_list
-

@@ -14,7 +14,7 @@ def get_mask_card_number(card_numbers: str) -> str:
     for i in card_numbers:
         if i.isalpha():
             count_letter += 1
-    card_type = card_numbers[0:count_letter]
+    card_type = card_numbers[0:count_letter+1]
 
     card_numbers_masked_list = [first_num_quad, second_num_quad, third_num_quad, fours_num_quad]
 

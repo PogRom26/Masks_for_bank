@@ -39,16 +39,34 @@ def get_mask_card_number(card_numbers: str, len_card_number = 16) -> str:
         return f"{card_type} {card_numbers_masked_with_space}"
 
 
-def get_mask_account(account_number: str) -> str:
+def get_mask_account(account_number: str, len_account_number = 20) -> str:
     """Принимает на вход номер счета и возвращает его маску.
     Видны только последние 4 цифры номера"""
 
-    count_letter = 0
-    for i in account_number:
-        if i.isalpha():
-            count_letter += 1
-    account_type = account_number[0:count_letter]
+    total_count_num = 0
+    count_num_from_end = 0
+    for num in account_number[-len_account_number:]:
+        if num in "0123456789":
+            count_num_from_end += 1
 
-    account_number_masked = len(account_number[-6:-4]) * "*" + account_number[-4:]
+    # Считаем (проверяем), что всего 16 цифр в строке
+    for num in account_number:
+        if num in "0123456789":
+            total_count_num += 1
 
-    return f"{account_type} {account_number_masked}"
+    if total_count_num == 0:
+        return "Номер счета не указан"
+
+    elif len_account_number != total_count_num or len_account_number != count_num_from_end:
+        return "Некорректный номер счета. Должно быть 20 цифр"
+
+    else:
+        count_letter = 0
+        for i in account_number:
+            if i.isalpha():
+                count_letter += 1
+        account_type = account_number[0:count_letter]
+
+        account_number_masked = len(account_number[-6:-4]) * "*" + account_number[-4:]
+
+        return f"{account_type} {account_number_masked}"

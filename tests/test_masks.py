@@ -33,4 +33,5 @@ def test_get_mask_card_number(card_info, masked_card_info):
 
 def test_up_get_mask_account(account_info, masked_account_info):
     """Тестирование правильности маскирования номера карты. Простой способ"""
+
     assert get_mask_account(account_info) == masked_account_info

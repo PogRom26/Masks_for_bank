@@ -1,10 +1,15 @@
+from tests.test_generators import transactions
 
-def filter_by_currency ():
+
+def filter_by_currency (transactions, code = "USD"):
     """принимает на вход список словарей, представляющих транзакции.
     Функция должна возвращать итератор, который поочередно выдает транзакции,
     где валюта операции соответствует заданной (например, USD)."""
-    pass
 
+    total_info = [transaction for transaction in transactions if
+                  transaction.get("operationAmount").get("currency").get("code") == 'USD']
+
+    return total_info
 
 def transaction_descriptions():
     """принимает список словарей с транзакциями и возвращает описание каждой операции по очереди"""
@@ -15,3 +20,8 @@ def card_number_generator():
     """который выдает номера банковских карт в формате XXXX XXXX XXXX XXXX, где X — цифра номера карты.
     Генератор может сгенерировать номера карт в заданном диапазоне от 0000 0000 0000 0001 до 9999 9999 9999 9999."""
     pass
+
+
+
+
+print(filter_by_currency(transactions))

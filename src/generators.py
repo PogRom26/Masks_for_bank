@@ -1,19 +1,21 @@
-from tests.test_generators import transactions
+from src.transactions import transactions
 
 
-def filter_by_currency (transactions, code = "USD"):
+def filter_by_currency (transactions:list, code: str = "USD") -> iter:
     """принимает на вход список словарей, представляющих транзакции.
     Функция должна возвращать итератор, который поочередно выдает транзакции,
     где валюта операции соответствует заданной (например, USD)."""
 
-    total_info = [transaction for transaction in transactions if
-                  transaction.get("operationAmount").get("currency").get("code") == 'USD']
+    for transaction in transactions:
+        if transaction.get("operationAmount").get("currency").get("code") == code:
+            yield transaction
 
-    return total_info
 
-def transaction_descriptions():
+def transaction_descriptions(transactions:any) -> any:
     """принимает список словарей с транзакциями и возвращает описание каждой операции по очереди"""
-    pass
+    for transaction in transactions:
+        description = transaction.get("description")
+        yield description
 
 
 def card_number_generator():
@@ -21,7 +23,6 @@ def card_number_generator():
     Генератор может сгенерировать номера карт в заданном диапазоне от 0000 0000 0000 0001 до 9999 9999 9999 9999."""
     pass
 
-
-
-
-print(filter_by_currency(transactions))
+descriptions = transaction_descriptions(transactions)
+for _ in range(5):
+    print(next(descriptions))

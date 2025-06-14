@@ -22,9 +22,7 @@ def card_number_generator(start = 1, stop = 9999999999999999):
     """который выдает номера банковских карт в формате XXXX XXXX XXXX XXXX, где X — цифра номера карты.
     Генератор может сгенерировать номера карт в заданном диапазоне от 0000 0000 0000 0001 до 9999 9999 9999 9999."""
 
-    number = str(random.randint(start, stop))
-    number = number.zfill(16)
-    formatted_number = ' '.join([number[i:i + 4] for i in range(0, len(number), 4)])
-    yield formatted_number
-
-
+    for number in range(start, stop):
+        number = str(number).zfill(16)
+        formatted_number = ' '.join([number[i:i + 4] for i in range(0, len(number), 4)])
+        yield formatted_number

@@ -1,14 +1,21 @@
 import random
 
 
-def filter_by_currency (transactions:list, code: str = "USD") -> iter:
+def filter_by_currency (transactions:list, code: str) -> iter:
     """принимает на вход список словарей, представляющих транзакции.
     Функция должна возвращать итератор, который поочередно выдает транзакции,
     где валюта операции соответствует заданной (например, USD)."""
 
+    count_correct_code = 0
     for transaction in transactions:
         if transaction.get("operationAmount").get("currency").get("code") == code:
-            yield transaction
+            count_correct_code += 1
+    if count_correct_code == 0:
+        yield "В списке операций отсутствует запрашиваемая валюта"
+    else:
+        for transaction in transactions:
+            if transaction.get("operationAmount").get("currency").get("code") == code:
+                yield transaction
 
 
 def transaction_descriptions(transactions:any) -> any:

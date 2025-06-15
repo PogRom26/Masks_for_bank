@@ -123,9 +123,9 @@ def test_transaction_descriptions_with_empty(empty_data):
     assert next(transaction_descriptions(empty_data)) == "В списке отсутствуют транзакции с описанием"
 
 
-def test_card_number_generator(start = 0, stop = 5):
+def test_card_number_generator(start = 1, stop = 5):
     current_list = list(card_number_generator(start, stop))
-    expected_list = ['0000 0000 0000 0000', '0000 0000 0000 0001', '0000 0000 0000 0002', '0000 0000 0000 0003', '0000 0000 0000 0004']
+    expected_list = ['0000 0000 0000 0001', '0000 0000 0000 0002', '0000 0000 0000 0003', '0000 0000 0000 0004']
     assert current_list == expected_list
 
 
@@ -153,4 +153,8 @@ def test_card_number_generator_correct_format():
 
 def test_card_number_generator_():
     """Убедитесь, что генератор корректно обрабатывает крайние значения диапазона и правильно завершает генерацию"""
-    pass
+
+    assert next(card_number_generator(0, 5)) == "Выбранное число не входит в диапазон от 1 до 9999.9999.9999.9999"
+    assert next(card_number_generator(1, 999999999999999999)) == "Выбранное число не входит в диапазон от 1 до 9999.9999.9999.9999"
+    assert next(card_number_generator(5, 2)) == "Стартовое число больше или не отличается от конечного"
+    assert next(card_number_generator(5, 5)) == "Стартовое число больше или не отличается от конечного"

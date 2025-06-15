@@ -45,3 +45,6 @@ transactions = [
         "to": "Счет 14211924144426031657",
     },
 ]
+
+
+transactions_is_empty = []

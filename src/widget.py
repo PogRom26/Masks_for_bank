@@ -1,7 +1,7 @@
 from src.masks import get_mask_account, get_mask_card_number
 
 
-def definition_account_or_card(user_account_or_cart: str, final_info=None) -> str:
+def definition_account_or_card(user_account_or_cart: str, final_info: str = None) -> str:
     """Определяет счет или карту и маскирует их номера"""
 
     count_letter = 0

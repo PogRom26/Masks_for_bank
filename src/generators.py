@@ -1,10 +1,8 @@
-import random
-
-
-def filter_by_currency (transactions:list, code: str) -> iter:
+def filter_by_currency(transactions: list, code: str) -> iter:
     """принимает на вход список словарей, представляющих транзакции.
     Функция должна возвращать итератор, который поочередно выдает транзакции,
-    где валюта операции соответствует заданной (например, USD)."""
+    где валюта операции соответствует заданной (например, USD).
+    """
 
     count_correct_code = 0
     for transaction in transactions:
@@ -18,7 +16,7 @@ def filter_by_currency (transactions:list, code: str) -> iter:
                 yield transaction
 
 
-def transaction_descriptions(transactions:any) -> any:
+def transaction_descriptions(transactions: list) -> any:
     """Принимает список словарей с транзакциями и возвращает описание каждой операции по очереди"""
 
     count_correct_description = 0
@@ -33,7 +31,7 @@ def transaction_descriptions(transactions:any) -> any:
             yield description
 
 
-def card_number_generator(start = 1, stop = 9999999999999999):
+def card_number_generator(start=1, stop=9999999999999999):
     """который выдает номера банковских карт в формате XXXX XXXX XXXX XXXX, где X — цифра номера карты.
     Генератор может сгенерировать номера карт в заданном диапазоне от 0000 0000 0000 0001 до 9999 9999 9999 9999."""
 
@@ -46,5 +44,5 @@ def card_number_generator(start = 1, stop = 9999999999999999):
     else:
         for number in range(start, stop):
             number = str(number).zfill(16)
-            formatted_number = ' '.join([number[i:i + 4] for i in range(0, len(number), 4)])
+            formatted_number = " ".join([number[i : i + 4] for i in range(0, len(number), 4)])
             yield formatted_number

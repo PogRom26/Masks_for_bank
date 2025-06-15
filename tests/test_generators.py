@@ -132,7 +132,7 @@ def test_card_number_generator(start = 1, stop = 5):
 def test_card_number_generator_correct_format_count_num():
     """Проверьте корректность форматирования номеров карт. Проверка на 16 цифр в номере карты"""
 
-    formatted_number = next(card_number_generator(0,5))
+    formatted_number = next(card_number_generator(1,5))
 
     list_with_symbols = []
     for symbol in formatted_number:
@@ -144,7 +144,7 @@ def test_card_number_generator_correct_format_count_num():
 def test_card_number_generator_correct_format():
     """Проверьте корректность форматирования номеров карт. Проверка на наличие трех пробелов в номере карты и их расположение"""
 
-    formatted_number = next(card_number_generator(0,5))
+    formatted_number = next(card_number_generator(1,5))
 
     assert formatted_number[4:5] == " "
     assert formatted_number[9:10] == " "

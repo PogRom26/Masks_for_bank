@@ -11,7 +11,7 @@ def filter_by_currency (transactions:list, code: str) -> iter:
         if transaction.get("operationAmount").get("currency").get("code") == code:
             count_correct_code += 1
     if count_correct_code == 0:
-        yield "В списке операций отсутствует запрашиваемая валюта"
+        yield "В списке операций отсутствует запрашиваемая валюта или список операций"
     else:
         for transaction in transactions:
             if transaction.get("operationAmount").get("currency").get("code") == code:
@@ -19,10 +19,18 @@ def filter_by_currency (transactions:list, code: str) -> iter:
 
 
 def transaction_descriptions(transactions:any) -> any:
-    """принимает список словарей с транзакциями и возвращает описание каждой операции по очереди"""
+    """Принимает список словарей с транзакциями и возвращает описание каждой операции по очереди"""
+
+    count_correct_description = 0
     for transaction in transactions:
-        description = transaction.get("description")
-        yield description
+        if transaction.get("description"):
+            count_correct_description += 1
+    if count_correct_description == 0:
+        yield "В списке отсутствуют транзакции с описанием"
+    else:
+        for transaction in transactions:
+            description = transaction.get("description")
+            yield description
 
 
 def card_number_generator(start = 1, stop = 9999999999999999):

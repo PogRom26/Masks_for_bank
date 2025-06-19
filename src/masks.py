@@ -1,4 +1,4 @@
-def get_mask_card_number(card_numbers: str, len_card_number: int =16) -> str:
+def get_mask_card_number(card_numbers: str, len_card_number: int = 16) -> str:
     """принимает на вход номер карты и возвращает ее маску
     Видны первые 6 цифр и последние 4 цифры, остальные символы отображаются звездочками
     """

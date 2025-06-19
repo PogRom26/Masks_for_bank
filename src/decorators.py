@@ -6,14 +6,14 @@ def log(filename=None):
 
     def decorator(func):
         @wraps(func)
-
         def wrapper(*args, **kwargs):
             args_repr = f"args={args}, kwargs={kwargs}"
+
             # Выводим логи (в файл или консоль)
             def write_log(message):
                 if filename:
-                    with open(filename, 'w', encoding='utf-8') as f:
-                        f.write(message + '\n')
+                    with open(filename, "w", encoding="utf-8") as f:
+                        f.write(message + "\n")
                 else:
                     print(message)
 
@@ -26,8 +26,7 @@ def log(filename=None):
 
             except Exception as e:
                 error_type = type(e).__name__
-                error_msg = (f"{func.__name__} - ОШИБКА: {error_type} - "
-                             f"Inputs: {args_repr} - Сообщение: {str(e)}")
+                error_msg = f"{func.__name__} - ОШИБКА: {error_type} - " f"Inputs: {args_repr} - Сообщение: {str(e)}"
                 write_log(error_msg)
                 raise  # Пробрасываем исключение дальше
 

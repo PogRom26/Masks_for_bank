@@ -1,7 +1,7 @@
 from src.masks import get_mask_account, get_mask_card_number
 
 
-def definition_account_or_card(user_account_or_cart: str, final_info=None) -> str:
+def definition_account_or_card(user_account_or_cart: str, final_info: str = None) -> str:
     """Определяет счет или карту и маскирует их номера"""
 
     count_letter = 0
@@ -10,7 +10,7 @@ def definition_account_or_card(user_account_or_cart: str, final_info=None) -> st
             count_letter += 1
 
     if count_letter < 4:
-        return "Не указаны все необходимые данные"
+        final_info = "Не указаны все необходимые данные"
 
     elif "Счет" in user_account_or_cart:
         final_info = get_mask_account(user_account_or_cart)
@@ -30,4 +30,3 @@ def get_date(data_date_time: str, date_in_d_m_y=None) -> str:
     date_in_d_m_y = date_in_y_m_d_split[2], date_in_y_m_d_split[1], date_in_y_m_d_split[0]
     date_in_d_m_y_jointed = ".".join(date_in_d_m_y)
     return date_in_d_m_y_jointed
-

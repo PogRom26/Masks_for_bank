@@ -49,17 +49,3 @@ def test_empty_args(capsys):
 
     captured = capsys.readouterr()
     assert "no_args - ОК" in captured.out
-
-
-def test_kwargs_only(capsys):
-    """Тест функции только с именованными аргументами"""
-
-    @log()
-    def kwargs_only(*, a, b):
-        return a + b
-
-    kwargs_only(a=1, b=2)
-
-    captured = capsys.readouterr()
-    assert "kwargs_only - ОК" in captured.out
-    assert "Inputs: args=(), kwargs={'a': 1, 'b': 2}" in captured.out

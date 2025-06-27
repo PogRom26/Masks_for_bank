@@ -1,9 +1,9 @@
-def get_mask_card_number(card_numbers: str, len_card_number = 16) -> str:
+def get_mask_card_number(card_numbers: str, len_card_number: int = 16) -> str:
     """принимает на вход номер карты и возвращает ее маску
     Видны первые 6 цифр и последние 4 цифры, остальные символы отображаются звездочками
     """
 
-    #Считаем (проверяем) цифры в конце строки
+    # Считаем (проверяем) цифры в конце строки
     total_count_num = 0
     count_num_from_end = 0
     for num in card_numbers[-len_card_number:]:
@@ -39,7 +39,7 @@ def get_mask_card_number(card_numbers: str, len_card_number = 16) -> str:
         return f"{card_type} {card_numbers_masked_with_space}"
 
 
-def get_mask_account(account_number: str, len_account_number = 20) -> str:
+def get_mask_account(account_number: str, len_account_number=20) -> str:
     """Принимает на вход номер счета и возвращает его маску.
     Видны только последние 4 цифры номера"""
 

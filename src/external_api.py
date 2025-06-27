@@ -32,7 +32,7 @@ def get_currency_rate(finish_curr:str, start_curr:str, how_many:float) -> str:
 def currency_conversion(list_with_transaction: dict) -> float:
     """ Принимает на вход транзакцию и возвращает сумму транзакции (amount) в рублях, тип данных — float.
     Если транзакция была в USD или EUR, происходит обращение к внешнему API
-    для получения текущего курса валют и конвертации суммы операции в рубли. """
+    для получения текущего курса валют и конвертации суммы операции в рубли """
 
     if list_with_transaction["operationAmount"]["currency"]["code"] == "RUB":
         summ_in_rub = list_with_transaction["operationAmount"]["amount"]

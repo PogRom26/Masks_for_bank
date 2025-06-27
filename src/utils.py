@@ -19,7 +19,6 @@ def load_transactions(file_path: str) -> list:
         if os.path.getsize(path_to_file) == 0:
             return []
 
-
         # Читаем JSON
         with open(path_to_file, 'r', encoding='utf-8') as f:
             data = json.load(f)

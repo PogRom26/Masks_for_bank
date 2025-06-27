@@ -3,10 +3,10 @@ import os
 
 
 def load_transactions(file_path: str) -> list:
-    """ Загружает список транзакций из JSON-файла.
+    """Загружает список транзакций из JSON-файла.
     Параметры: file_path: Путь к JSON-файлу с транзакциями
     Возвращает: Список словарей с транзакциями.
-    Если файл не найден, пустой или содержит не список, возвращает пустой список """
+    Если файл не найден, пустой или содержит не список, возвращает пустой список"""
 
     try:
         path_to_file = file_path
@@ -20,7 +20,7 @@ def load_transactions(file_path: str) -> list:
             return []
 
         # Читаем JSON
-        with open(path_to_file, 'r', encoding='utf-8') as f:
+        with open(path_to_file, "r", encoding="utf-8") as f:
             data = json.load(f)
 
         # Проверяем, что данные - это список

@@ -1,6 +1,6 @@
 import json
-import os
 import logging
+import os
 from pathlib import Path
 
 # Создаем папку для логов, если её нет
@@ -9,7 +9,7 @@ log_dir = Path(__file__).parent.parent / "logs"
 # Создание и получение именованного логера
 logger = logging.getLogger(__name__)
 
-#Установка уровня логирования
+# Установка уровня логирования
 logger.setLevel(logging.DEBUG)
 
 # Указываем полный путь к файлу
@@ -19,8 +19,8 @@ log_file = os.path.join(log_dir, f"{__name__}.log")  # Собираем путь
 file_handler = logging.FileHandler(log_file, mode="w")
 logger.addHandler(file_handler)
 
-#Форматер
-file_formatter = logging.Formatter('%(asctime)s %(filename)s %(levelname)s: %(message)s')
+# Форматер
+file_formatter = logging.Formatter("%(asctime)s %(filename)s %(levelname)s: %(message)s")
 file_handler.setFormatter(file_formatter)
 
 

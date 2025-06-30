@@ -8,7 +8,7 @@ log_dir = Path(__file__).parent.parent / "logs"
 # Создание и получение именованного логера
 logger = logging.getLogger(__name__)
 
-#Установка уровня логирования
+# Установка уровня логирования
 logger.setLevel(logging.DEBUG)
 
 # Указываем полный путь к файлу
@@ -18,8 +18,8 @@ log_file = os.path.join(log_dir, f"{__name__}.log")  # Собираем путь
 file_handler = logging.FileHandler(log_file, mode="w")
 logger.addHandler(file_handler)
 
-#Форматер
-file_formatter = logging.Formatter('%(asctime)s %(filename)s %(levelname)s: %(message)s')
+# Форматер
+file_formatter = logging.Formatter("%(asctime)s %(filename)s %(levelname)s: %(message)s")
 file_handler.setFormatter(file_formatter)
 
 
@@ -41,11 +41,11 @@ def get_mask_card_number(card_numbers: str, len_card_number: int = 16) -> str:
             total_count_num += 1
 
     if total_count_num == 0:
-        logger.error('Номер карты не указан')
+        logger.error("Номер карты не указан")
         return "Номер карты не указан"
 
     elif len_card_number != total_count_num or len_card_number != count_num_from_end:
-        logger.error('Некорректный номер карты. Должно быть 16 цифр')
+        logger.error("Некорректный номер карты. Должно быть 16 цифр")
         return "Некорректный номер карты. Должно быть 16 цифр"
 
     else:
@@ -63,7 +63,7 @@ def get_mask_card_number(card_numbers: str, len_card_number: int = 16) -> str:
 
         card_numbers_masked_with_space = " ".join(card_numbers_masked_list)
 
-        logger.info('Номер карты замаскирован')
+        logger.info("Номер карты замаскирован")
         return f"{card_type} {card_numbers_masked_with_space}"
 
 
@@ -99,5 +99,5 @@ def get_mask_account(account_number: str, len_account_number=20) -> str:
 
         account_number_masked = len(account_number[-6:-4]) * "*" + account_number[-4:]
 
-        logger.info('Номер счёта замаскирован')
+        logger.info("Номер счёта замаскирован")
         return f"{account_type} {account_number_masked}"

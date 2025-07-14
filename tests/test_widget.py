@@ -1,7 +1,9 @@
 import pytest
+
 from src.widget import definition_account_or_card, get_date
 
-#Тестируем распознавание карты или счета
+# Тестируем распознавание карты или счета
+
 
 @pytest.mark.parametrize(
     "card_or_account_info, masked_info",
@@ -16,18 +18,18 @@ from src.widget import definition_account_or_card, get_date
         ("5999414228426353", "Не указаны все необходимые данные"),
     ],
 )
-def test_up_widget (card_or_account_info, masked_info):
+def test_up_widget(card_or_account_info, masked_info):
     """Проверка корректного распознает и применяет нужный тип маскировки
     в зависимости от типа входных данных (карта или счет)."""
 
     assert definition_account_or_card(card_or_account_info) == masked_info
 
-#Тестируем правильность преобразования даты
+
+# Тестируем правильность преобразования даты
 
 
 @pytest.mark.parametrize("input_info, out_info", [("2024-03-11T02:26:18.671407", "11.03.2024")])
-
-def test_get_date (input_info, out_info):
+def test_get_date(input_info, out_info):
     assert get_date(input_info) == out_info
     assert input_info[0:4] == out_info[-4:]
     assert input_info[5:7] == out_info[-7:-5]
@@ -37,6 +39,7 @@ def test_get_date (input_info, out_info):
 @pytest.fixture
 def date_example():
     return "2024-03-11T02:26:18.671407"
+
 
 def test_len_date(date_example, len_data=26):
     """Тестирование на количество цифр в данных о карте и их расположение в конце строки"""

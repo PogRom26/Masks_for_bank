@@ -64,4 +64,3 @@ def test_different_currencies(from_curr, to_curr, amount, expected):
 
         result = get_currency_rate(to_curr, from_curr, amount)
         assert result == expected
-

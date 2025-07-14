@@ -1,10 +1,9 @@
-import pandas as pd
 import csv
-from pandas import DataFrame
-from csv import DictReader
+
+import pandas as pd
 
 
-def reading_transaction(path_to_file:str) -> any:
+def reading_transaction(path_to_file: str) -> any:
     """Функция получает путь к файлу с транзакциями, определяет тип файла,
     обрабатывает файл и выдает список словарей с транзакциями"""
 
@@ -23,10 +22,9 @@ def reading_transaction(path_to_file:str) -> any:
         # Код для EXCEL файлов
         if path_to_file.endswith("xlsx"):
             df = pd.read_excel(path_to_file)
-            transactions = df.to_dict(orient='records')
+            transactions = df.to_dict(orient="records")
 
         return transactions
-
 
     except FileNotFoundError:
         print(f"Ошибка: Файл '{path_to_file}' не найден.")

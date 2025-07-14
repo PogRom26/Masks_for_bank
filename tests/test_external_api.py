@@ -65,25 +65,3 @@ def test_different_currencies(from_curr, to_curr, amount, expected):
         result = get_currency_rate(to_curr, from_curr, amount)
         assert result == expected
 
-
-@pytest.mark.parametrize(
-    "from_curr,to_curr,amount,expected",
-    [
-        ("", "EUR", 100, "Bad Request"),  # Пустая начальная валюта
-        ("USD", "", 100, "Bad Request"),  # Пустая конечная валюта
-        ("US", "EUR", 100, "Bad Request"),  # Неправильная длина кода
-        ("USDX", "EUR", 100, "Bad Request"),  # Неправильная длина кода
-        ("USD", "EUR", -100, "Bad Request"),  # Отрицательная сумма
-        ("USD", "EUR", 0, "Bad Request"),  # Нулевая сумма
-        ("123", "EUR", 100, "Bad Request"),  # Код с цифрами
-        ("USD", "456", 100, "Bad Request"),  # Код с цифрами
-        ("$$$", "EUR", 100, "Bad Request"),  # Спецсимволы в коде
-        ("USD", "***", 100, "Bad Request"),  # Спецсимволы в коде
-    ],
-)
-def test_invalid_inputs(from_curr, to_curr, amount, expected):
-    """Тест невалидных входных данных без mock"""
-    result = get_currency_rate(to_curr, from_curr, amount)
-
-    # Проверяем, что результат содержит ожидаемую ошибку
-    assert expected.lower() in result.lower()

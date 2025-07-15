@@ -44,3 +44,9 @@ line_length = 119
 disallow_untyped_defs = true
 warn_return_any = true
 exclude = 'venv'
+
+[tool.poetry]
+name = "masks-for-bank"
+version = "0.1.0"
+description = "my super project))"
+authors = ["Roman <romzes26@yandex.ru>"]

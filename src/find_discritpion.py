@@ -1,48 +1,38 @@
+import os
 from typing import Any
 from pathlib import Path
-import pandas as pd
-
-
 from src.reading_trans import reading_transaction
+from collections import Counter
+
 
 def process_bank_operations(data:list[dict], categories:list)-> list[Any]:
     """Принимает список словарей с данными о банковских операциях и список категорий операций.
     Возвращает словарь, в котором ключи — это названия категорий, а значения — это количество операций в каждой категории.
     Категории операций хранятся в поле description"""
 
-    # Путь к текущему модулю
-    current_dir = Path(__file__).parent
-    file_address = current_dir.parent / "src" / "transactions_excel.xlsx"
-
-    data_with_trans = reading_transaction(file_address)
-    categories = ["Перевод организации", "Открытие вклада"]
-
     #Формирование нового словаря с ключами - названиями категорий.
-
     key = "description"
 
     dict_with_names_category = []
 
-    for item in data_with_trans:
-        if item.get(key) not in dict_with_names_category:
+    for item in data:
+        if item.get(key) in categories:
             dict_with_names_category.append(item.get(key))
 
+    #Подсчет количество операций в каждой категории
+    counted  = Counter(dict_with_names_category)
+    list_with_counter = counted.most_common()
+
+    return list_with_counter
 
 
+#Пример работы функции
+project_dir = Path(__file__).parent.parent
+data_dir = "data"
+file_name = "transactions_excel.xlsx"
+path_to_file = os.path.join(project_dir, data_dir, file_name)
 
-    # return data_with_trans
-    return dict_with_names_category
-
-
-
-# Путь к текущему модулю
-current_dir = Path(__file__).parent
-
-# Путь к файлу в соседней папке
-file_path = current_dir.parent / "соседняя_папка" / "файл.txt"
-
-
-file_address = "/Users/romanpogorelcev/Documents/Pytons PRO/PythonProject/Masks_for_bank/data/transactions_excel.xlsx"
-data = reading_transaction(file_address)
+data_with_trans = reading_transaction(path_to_file)
 categories = ["Перевод организации", "Открытие вклада"]
-print(process_bank_operations(data, categories))
+
+print(process_bank_operations(data_with_trans, categories))

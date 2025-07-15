@@ -1,4 +1,6 @@
+import os
 import re
+from pathlib import Path
 
 from src.reading_trans import reading_transaction
 
@@ -20,6 +22,16 @@ def process_bank_search(data:list[dict], search:str)->list[dict]:
                     break
     return list_with_operation
 
-file_address = "/Users/romanpogorelcev/Documents/Pytons PRO/PythonProject/Masks_for_bank/data/transactions_excel.xlsx"
-data = reading_transaction(file_address)
+
+project_dir = Path(__file__).parent.parent #Основная папка проекта
+data_dir = "data"
+file_name = "transactions_excel.xlsx"
+
+path_to_file = os.path.join(project_dir, data_dir, file_name)
+
+print(path_to_file)
+
+
+# file_address = "C:\Users\RO26\Desktop\Masks_for_bank\data\transactions_excel.xlsx"
+data = reading_transaction(path_to_file)
 print(process_bank_search(data, "Вкла"))

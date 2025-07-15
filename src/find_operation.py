@@ -2,29 +2,24 @@ import re
 
 from src.reading_trans import reading_transaction
 
-def process_bank_search(search:str)->list[dict]:
+def process_bank_search(data:list[dict], search:str)->list[dict]:
     """Функция для поиска в списке словарей операций по заданной строке — описанию.
     Принимает два аргумента: список с транзакциями и строку для поиска.
     Возвращает список словарей с операциями, у которых в описании есть строка, переданная аргументу функции."""
 
     list_with_operation = []
 
-    file_address = "/Users/romanpogorelcev/Documents/Pytons PRO/PythonProject/Masks_for_bank/data/transactions_excel.xlsx"
-
-    data = reading_transaction(file_address)
-
     pattern = search
-
-    result = []
 
     for item in data:
         # Проверяем все значения словаря
         for value in item.values():
             if isinstance(value, str):
                 if re.search(pattern, value, re.IGNORECASE):
-                    result.append(item)
+                    list_with_operation.append(item)
                     break
-    return result
+    return list_with_operation
 
-
-print(process_bank_search("Вкла"))
+file_address = "/Users/romanpogorelcev/Documents/Pytons PRO/PythonProject/Masks_for_bank/data/transactions_excel.xlsx"
+data = reading_transaction(file_address)
+print(process_bank_search(data, "Вкла"))

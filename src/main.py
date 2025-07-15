@@ -46,17 +46,13 @@ try:
 except ValueError:
     print("Что-то не так с числом, попробуйте еще раз")
 
+else:
 
-second_que = """
+    second_que = """
 Введите статус, по которому необходимо выполнить фильтрацию. 
 Доступные для фильтровки статусы: EXECUTED, CANCELED, PENDING """
-print(second_que)
-print()
 
+    print(second_que)
+    print()
 
-
-try:
-    second_answer = int("Укажите статус: ")
-
-    if second_answer == "EXECUTED":
-        print("OK")
+second_answer = input("Укажите статус: ")

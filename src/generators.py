@@ -1,19 +1,44 @@
-def filter_by_currency(transactions: list, code: str) -> iter:
+def filter_by_currency(transactions: list, code: str = None) -> iter:
     """принимает на вход список словарей, представляющих транзакции.
     Функция должна возвращать итератор, который поочередно выдает транзакции,
     где валюта операции соответствует заданной (например, USD).
+    Если код валюты не задан, то выбираются все транзакции.
     """
 
-    count_correct_code = 0
-    for transaction in transactions:
-        if transaction.get("operationAmount").get("currency").get("code") == code:
-            count_correct_code += 1
-    if count_correct_code == 0:
-        yield "В списке операций отсутствует запрашиваемая валюта или список операций"
+    #Код валюты не передан в функцию
+    if code is None:
+        #Считаем, есть ли вообще строки с операциями в документе
+        count_code_in_doc = 0
+        for transaction in transactions:
+            if transaction.get("operationAmount").get("currency").get("code"):
+                count_code_in_doc += 1
+
+        # Если записей не оказалось, то есть счетчик равен 0, то выдает соответствующее сообщение
+        if count_code_in_doc == 0:
+            yield "Список операций пуст"
+
+        #В ином случае (счетчик не 0, записи есть), выдаем все такие записи
+        else:
+            for transaction in transactions:
+                yield transaction
+
+    #Код валюты определен
     else:
+        #Считаем количество операций по указанной валюте
+        count_code_in_doc = 0
         for transaction in transactions:
             if transaction.get("operationAmount").get("currency").get("code") == code:
-                yield transaction
+                count_code_in_doc += 1
+
+        #Если записей не оказалось, то есть счетчик равен 0, то выдает соответствующее сообщение
+        if count_code_in_doc == 0:
+            yield "В списке операций отсутствует запрашиваемая валюта или список операций"
+
+        # Если записей с указанной валютой есть, то вернет список операций
+        else:
+            for transaction in transactions:
+                if transaction.get("operationAmount").get("currency").get("code") == code:
+                    yield transaction
 
 
 def transaction_descriptions(transactions: list) -> any:

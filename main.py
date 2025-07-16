@@ -3,7 +3,6 @@ def main():
     """Отвечает за основную логику проекта и связывает функциональности между собой"""
     return "   "
 
-print(main())
 
 
 # Приветствие и вопрос
@@ -19,7 +18,10 @@ que_about_file = ("""
 print(que_about_file)
 print()
 
-#Определение типа файла, из которого будут обрабатываться операции
+#Определение типа файла, из которого будут обрабатываться операции.
+# К reading_trans.py - reading_transaction. Для извлечения файла из CSV или XLSX
+# К utils.py - load_transactions. Для извлечения файла из JSON
+
 while True:
     answer_about_file = input("Введите его номер: ")
     print()
@@ -43,7 +45,7 @@ while True:
         print("Выбрано число не соответствующее пункту. Попробуйте еще раз")
 
 
-
+#Определение фильтрации по операциям. К processing.py - filter_by_state
 que_about_status = """
 Введите статус, по которому необходимо выполнить фильтрацию. 
 Доступные для фильтровки статусы: EXECUTED, CANCELED, PENDING """
@@ -76,7 +78,7 @@ while True:
 
 print()
 
-#Сортировка по дате
+#Сортировка по дате. К processing.py - sort_by_date
 while True:
     answer_about_sort_by_date = input("Отсортировать операции по дате? Да/Нет: ")
     if answer_about_sort_by_date.lower() == "да":
@@ -89,7 +91,7 @@ while True:
 
 print()
 
-#Сортировка по возрастанию или убыванию
+#Сортировка по возрастанию или убыванию. К processing.py - sort_by_date
 while True:
     answer_about_sort_by_date_reverse = input("Отсортировать по возрастанию или по убыванию? Да/Нет: ")
     if answer_about_sort_by_date_reverse.lower() == "да":
@@ -112,13 +114,16 @@ while True:
         break
 
 
+#Показывает операции с фильтром по слову. К find_operation.py - process_bank_search
+while True:
+    answer_about_filter = input("Отфильтровать список транзакций по определенному слову? Да/Нет: ")
+    if answer_about_filter.lower() == "да":
+        search_for_process_bank_search = input("Укажите это слово: ")
+        break
+
+    elif answer_about_filter.lower() == "нет":
+        break
 
 
-"""
 
-Программа: Отфильтровать список транзакций по определенному слову 
-в описании? Да/Нет
-
-Пользователь: да/нет
-
-Программа: Распечатываю итоговый список транзакций..."""
+"""Программа: Распечатываю итоговый список транзакций..."""

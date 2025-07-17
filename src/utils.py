@@ -2,6 +2,7 @@ import json
 import logging
 import os
 from pathlib import Path
+from typing import Any
 
 # Создаем папку для логов, если её нет
 log_dir = Path(__file__).parent.parent / "logs"
@@ -24,7 +25,7 @@ file_formatter = logging.Formatter("%(asctime)s %(filename)s %(levelname)s: %(me
 file_handler.setFormatter(file_formatter)
 
 
-def load_transactions(file_path: str) -> list:
+def load_transactions(file_path: str) -> list[Any] | list | str:
     """Загружает список транзакций из JSON-файла.
     Параметры: file_path: Путь к JSON-файлу с транзакциями
     Возвращает: Список словарей с транзакциями.
@@ -36,12 +37,12 @@ def load_transactions(file_path: str) -> list:
         # Проверяем существование файла и что это файл
         if not os.path.exists(path_to_file) or not os.path.isfile(path_to_file):
             logger.error("Файл не существует или пустой")
-            return []
+            return f"Файл не существует или пустой"
 
         # Проверяем, что файл не пустой
         if os.path.getsize(path_to_file) == 0:
             logger.error("Файл пуст")
-            return []
+            return f"Файл пуст"
 
         # Читаем JSON
         with open(path_to_file, "r", encoding="utf-8") as f:
@@ -50,7 +51,7 @@ def load_transactions(file_path: str) -> list:
         # Проверяем, что данные - это список
         if not isinstance(data, list):
             logger.error("В файле нет списка")
-            return []
+            return f"В файле нет списка"
 
         logger.error("Список успешно обработан")
         return data

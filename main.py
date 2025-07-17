@@ -13,7 +13,7 @@ from src.find_operation import process_bank_search
 #          code_for_filter_by_currency:str, search_for_process_bank_search:str):
 
 def main(file_with_operations:str, key_for_filter_by_state:str,
-         key_for_sort_by_date:bool, key_for_sort_by_date_reverse:bool):
+         key_for_sort_by_date:bool, key_for_sort_by_date_reverse:bool, code_for_filter_by_currency:str) -> list:
 
     """Отвечает за основную логику проекта и связывает функциональности между собой"""
     list_with_data = []
@@ -67,13 +67,10 @@ def main(file_with_operations:str, key_for_filter_by_state:str,
         else:
             list_after_sort = sort_by_date(list_after_filter, reverse=False)
     else:
-        if key_for_sort_by_date_reverse:
-            list_after_sort = sort_by_date(list_after_filter, key=False)
-        else:
-            list_after_sort = sort_by_date(list_after_filter, key=False, reverse=False)
-    #
-    # # Показывать рублевые транзакции. К generators.py - filter_by_currency
-    # list_after_filter_by_currency = filter_by_currency(list_after_sort, code_for_filter_by_currency)
+        list_after_sort = list_after_filter
+
+    # Показывать рублевые транзакции. К generators.py - filter_by_currency
+    list_after_filter_by_currency = filter_by_currency(list_after_sort, code_for_filter_by_currency)
     #
     # # Показывает операции с фильтром по слову. К find_operation.py - process_bank_search
     # if search_for_process_bank_search:
@@ -81,7 +78,7 @@ def main(file_with_operations:str, key_for_filter_by_state:str,
     # else:
     #     list_after_filter_by_word = list_after_filter_by_currency
 
-    return list_after_sort
+    return list_after_filter_by_currency
 
 
 ###########################################################################
@@ -172,30 +169,34 @@ while True:
 print()
 
 #Сортировка по возрастанию или убыванию. К processing.py - sort_by_date
+if answer_about_sort_by_date.lower() == "да":
+    while True:
+        answer_about_sort_by_date_reverse = input("Отсортировать: по убыванию/по возрастанию: ")
+        if answer_about_sort_by_date_reverse.lower() == "по убыванию":
+            key_for_sort_by_date_reverse = True
+            break
+
+        elif answer_about_sort_by_date_reverse.lower() == "по возрастанию":
+            key_for_sort_by_date_reverse = False
+            break
+else:
+    key_for_sort_by_date_reverse = False
+
+print()
+
+#Показывать рублевые транзакции. К generators.py - filter_by_currency
 while True:
-    answer_about_sort_by_date_reverse = input("Отсортировать по возрастанию или по убыванию? Да/Нет: ")
-    if answer_about_sort_by_date_reverse.lower() == "да":
-        key_for_sort_by_date_reverse = True
+    answer_about_rub_trans = input("Выводить только рублевые транзакции? Да/Нет: ")
+    if answer_about_rub_trans.lower() == "да":
+        code_for_filter_by_currency = "RUB"
         break
 
-    elif answer_about_sort_by_date_reverse.lower() == "нет":
-        key_for_sort_by_date_reverse = False
+    elif answer_about_rub_trans.lower() == "нет":
+        code_for_filter_by_currency = None
         break
 
 print()
 
-# #Показывать рублевые транзакции. К generators.py - filter_by_currency
-# while True:
-#     answer_about_rub_trans = input("Выводить только рублевые транзакции? Да/Нет: ")
-#     if answer_about_rub_trans.lower() == "да":
-#         code_for_filter_by_currency = "RUB"
-#         break
-#
-#     elif answer_about_rub_trans.lower() == "нет":
-#         code_for_filter_by_currency = None
-#         break
-#
-# print()
 # #Показывает операции с фильтром по слову. К find_operation.py - process_bank_search
 # while True:
 #     answer_about_filter = input("Отфильтровать список транзакций по определенному слову? Да/Нет: ")
@@ -211,4 +212,4 @@ print()
 # print(main(file_with_operations, key_for_filter_by_state, key_for_sort_by_date, key_for_sort_by_date_reverse, code_for_filter_by_currency, search_for_process_bank_search))
 
 
-print(main(file_with_operations, key_for_filter_by_state, key_for_sort_by_date, key_for_sort_by_date_reverse))
+print(main(file_with_operations, key_for_filter_by_state, key_for_sort_by_date, key_for_sort_by_date_reverse, code_for_filter_by_currency))

@@ -37,12 +37,12 @@ def load_transactions(file_path: str) -> list[Any] | list | str:
         # Проверяем существование файла и что это файл
         if not os.path.exists(path_to_file) or not os.path.isfile(path_to_file):
             logger.error("Файл не существует или пустой")
-            return f"Файл не существует или пустой"
+            return "Файл не существует или пустой"
 
         # Проверяем, что файл не пустой
         if os.path.getsize(path_to_file) == 0:
             logger.error("Файл пуст")
-            return f"Файл пуст"
+            return "Файл пуст"
 
         # Читаем JSON
         with open(path_to_file, "r", encoding="utf-8") as f:
@@ -51,7 +51,7 @@ def load_transactions(file_path: str) -> list[Any] | list | str:
         # Проверяем, что данные - это список
         if not isinstance(data, list):
             logger.error("В файле нет списка")
-            return f"В файле нет списка"
+            return "В файле нет списка"
 
         logger.error("Список успешно обработан")
         return data

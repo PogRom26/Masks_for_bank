@@ -1,20 +1,19 @@
-import re
-from collections import Counter
-from typing import Iterator, List, Dict, Any, Generator
+from typing import Dict, Generator, List
 
 
-def filter_by_currency(transactions: List[Dict], code: str = None) -> Generator[
-    dict | dict[str, str] | str, None, None]:
+def filter_by_currency(
+    transactions: List[Dict], code: str = None
+) -> Generator[dict | dict[str, str] | str, None, None]:
     """Принимает на вход список словарей, представляющих транзакции.
     Возвращает итератор, выдающий транзакции, где валюта операции соответствует заданной (например, USD).
     Если код валюты не задан, возвращает все транзакции."""
 
     def extract_currency(transaction: dict) -> str | None:
         """Безопасно извлекает валюту из транзакции"""
-        if isinstance(transaction.get('operationAmount'), dict):
-            return transaction['operationAmount'].get('currency', {}).get('code')
+        if isinstance(transaction.get("operationAmount"), dict):
+            return transaction["operationAmount"].get("currency", {}).get("code")
 
-        return transaction.get('currency_code') or None
+        return transaction.get("currency_code") or None
 
     # Код валюты не указан
     if not code:

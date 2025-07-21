@@ -1,5 +1,5 @@
 import pytest
-from unittest.mock import patch
+
 from src.find_discritpion import process_bank_operations  # Импортируем тестируемую функцию
 
 # Тестовые данные
@@ -46,10 +46,13 @@ def test_missing_description_field():
 
 
 # Параметризованный тест
-@pytest.mark.parametrize("data,categories,expected", [
-    (TEST_DATA, TEST_CATEGORIES, [("Groceries", 2), ("Transport", 2)]),
-    ([{"description": "A"}, {"description": "A"}], ["A"], [("A", 2)]),
-    ([{"description": "B"}], ["C"], []),
-])
+@pytest.mark.parametrize(
+    "data,categories,expected",
+    [
+        (TEST_DATA, TEST_CATEGORIES, [("Groceries", 2), ("Transport", 2)]),
+        ([{"description": "A"}, {"description": "A"}], ["A"], [("A", 2)]),
+        ([{"description": "B"}], ["C"], []),
+    ],
+)
 def test_parametrized(data, categories, expected):
     assert process_bank_operations(data, categories) == expected

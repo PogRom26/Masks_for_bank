@@ -4,7 +4,7 @@ import requests
 from dotenv import load_dotenv
 
 
-def get_currency_rate(finish_curr: str, start_curr: str, how_many: float) -> str:
+def get_currency_rate(finish_curr: str, start_curr: str, how_many: float) -> any:
     """Принимает тип конечной валюты, тип начальной валюты и сумму.
     После чего обращается по API за курсом валюты
     и конвертирует сумму начальной валюты в конечную"""
@@ -36,6 +36,7 @@ def currency_conversion(list_with_transaction: dict) -> float:
     Если транзакция была в USD или EUR, происходит обращение к внешнему API
     для получения текущего курса валют и конвертации суммы операции в рубли"""
 
+    summ_in_rub = 0
     if list_with_transaction["operationAmount"]["currency"]["code"] == "RUB":
         summ_in_rub = list_with_transaction["operationAmount"]["amount"]
 

@@ -23,4 +23,3 @@ def sort_by_date(list_with_dictions: list, key=lambda x: x["date"], reverse=True
         sorted_list = sorted(list_with_dictions, reverse=reverse)
 
     return sorted_list
-

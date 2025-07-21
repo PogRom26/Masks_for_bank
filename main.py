@@ -78,7 +78,7 @@ def main(file_with_operations:str, key_for_filter_by_state:str,
     if len(list_after_filter_by_word) > 0:
         return list_after_filter_by_word
     else:
-        return f"Не найдено ни одной транзакции, подходящей под ваши условия фильтрации"
+        return "Не найдено ни одной транзакции, подходящей под ваши условия фильтрации"
 
 
 ###########################################################################

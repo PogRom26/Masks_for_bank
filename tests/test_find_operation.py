@@ -1,6 +1,5 @@
 import pytest
-from unittest.mock import patch, MagicMock
-import re
+
 from src.find_operation import process_bank_search  # Импортируем тестируемую функцию
 
 # Тестовые данные
@@ -48,13 +47,16 @@ def test_partial_match():
 
 
 # Параметризованные тесты
-@pytest.mark.parametrize("search_term,expected_count", [
-    ("ALDI", 3),
-    ("uber", 2),
-    ("entertainment", 1),
-    ("nonexistent", 0),
-    ("", 6),  # Все записи со строковыми полями
-])
+@pytest.mark.parametrize(
+    "search_term,expected_count",
+    [
+        ("ALDI", 3),
+        ("uber", 2),
+        ("entertainment", 1),
+        ("nonexistent", 0),
+        ("", 6),  # Все записи со строковыми полями
+    ],
+)
 def test_parametrized_search(search_term, expected_count):
     result = process_bank_search(TEST_DATA, search_term)
     assert len(result) == expected_count

@@ -1,4 +1,4 @@
-def filter_by_state(list_with_dictions: list, key="EXECUTED") -> list:
+def filter_by_state(list_with_dictions: list, key: str = "EXECUTED") -> list:
     """Принимает список словарей и опционально значение для ключа state (по умолчанию 'EXECUTED').
     Функция возвращает новый список словарей, содержащий только те словари, у которых ключ state
     соответствует указанному значению."""
@@ -17,6 +17,9 @@ def sort_by_date(list_with_dictions: list, key=lambda x: x["date"], reverse=True
     """Принимает список словарей и необязательный параметр, задающий порядок сортировки (по умолчанию — убывание).
     Функция должна возвращать новый список, отсортированный по дате (date)."""
 
-    sorted_list = sorted(list_with_dictions, key=key, reverse=reverse)
+    if key:
+        sorted_list = sorted(list_with_dictions, key=key, reverse=reverse)
+    else:
+        sorted_list = sorted(list_with_dictions, reverse=reverse)
 
     return sorted_list

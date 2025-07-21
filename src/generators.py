@@ -1,44 +1,39 @@
-def filter_by_currency(transactions: list, code: str = None) -> iter:
-    """принимает на вход список словарей, представляющих транзакции.
-    Функция должна возвращать итератор, который поочередно выдает транзакции,
-    где валюта операции соответствует заданной (например, USD).
-    Если код валюты не задан, то выбираются все транзакции.
-    """
+import re
+from collections import Counter
+from typing import Iterator, List, Dict
 
-    #Код валюты не передан в функцию
-    if code is None:
-        #Считаем, есть ли вообще строки с операциями в документе
-        count_code_in_doc = 0
-        for transaction in transactions:
-            if transaction.get("operationAmount").get("currency").get("code"):
-                count_code_in_doc += 1
 
-        # Если записей не оказалось, то есть счетчик равен 0, то выдает соответствующее сообщение
-        if count_code_in_doc == 0:
-            yield "Список операций пуст"
+def filter_by_currency(transactions: List[Dict], code: str = None) -> Iterator[Dict]:
+    """Принимает на вход список словарей, представляющих транзакции.
+    Возвращает итератор, выдающий транзакции, где валюта операции соответствует заданной (например, USD).
+    Если код валюты не задан, возвращает все транзакции."""
 
-        #В ином случае (счетчик не 0, записи есть), выдаем все такие записи
+    def extract_currency(transaction: dict) -> str | None:
+        """Безопасно извлекает валюту из транзакции"""
+        if isinstance(transaction.get('operationAmount'), dict):
+            return transaction['operationAmount'].get('currency', {}).get('code')
+
+        return transaction.get('currency_code') or None
+
+    # Код валюты не указан
+    if not code:
+        if len(transactions) > 0:
+            for t in transactions:
+                yield t
         else:
-            for transaction in transactions:
-                yield transaction
+            yield {"message": "Список операций пуст"}
 
-    #Код валюты определен
+    # Код валюты указан
     else:
-        #Считаем количество операций по указанной валюте
-        count_code_in_doc = 0
-        for transaction in transactions:
-            if transaction.get("operationAmount").get("currency").get("code") == code:
-                count_code_in_doc += 1
+        found_any = False
+        for t in transactions:
+            currency = extract_currency(t)
+            if currency == code:
+                found_any = True
+                yield t
 
-        #Если записей не оказалось, то есть счетчик равен 0, то выдает соответствующее сообщение
-        if count_code_in_doc == 0:
-            yield "В списке операций отсутствует запрашиваемая валюта или список операций"
-
-        # Если записей с указанной валютой есть, то вернет список операций
-        else:
-            for transaction in transactions:
-                if transaction.get("operationAmount").get("currency").get("code") == code:
-                    yield transaction
+        if not found_any:
+            yield {"message": f"В списке операций отсутствуют транзакции с валютой {code}"}
 
 
 def transaction_descriptions(transactions: list) -> any:
@@ -71,3 +66,37 @@ def card_number_generator(start=1, stop=9999999999999999):
             number = str(number).zfill(16)
             formatted_number = " ".join([number[i:i + 4] for i in range(0, len(number), 4)])
             yield formatted_number
+
+
+
+########################################### Пример
+# from pathlib import Path
+# import os
+# from src.reading_trans import reading_transaction
+# from src.utils import load_transactions
+#
+#
+# project_dir = Path(__file__).parent.parent
+# data_dir = "data"
+# data_folder = os.path.join(project_dir, data_dir)
+#
+# csv_files = [f.name for f in Path(data_folder).rglob('*.csv')]
+# file_name = "".join(csv_files)
+#
+# path_to_file = os.path.join(project_dir, data_dir, file_name)
+#
+# file = reading_transaction(path_to_file)
+# # file = load_transactions(path_to_file)
+#
+# # print(f"{file} это список из файла")
+# print()
+# # print(path_to_file)
+# #
+# result = list(filter_by_currency(file, "RUB"))
+# # # #
+# print(f" Вот такой результат {result}")
+
+#
+# for transaction in file:
+#     if transaction["operationAmount"]["currency"]["code"] == "RUB":
+#         print(transaction["operationAmount"]["currency"]["code"])

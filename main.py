@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from typing import Iterator
 
 from src.utils import load_transactions
 from src.reading_trans import reading_transaction
@@ -8,12 +9,9 @@ from src.generators import filter_by_currency
 from src.find_operation import process_bank_search
 
 
-# def main(file_with_operations:str, key_for_filter_by_state:str,
-#          key_for_sort_by_date:bool, key_for_sort_by_date_reverse:bool,
-#          code_for_filter_by_currency:str, search_for_process_bank_search:str):
-
 def main(file_with_operations:str, key_for_filter_by_state:str,
-         key_for_sort_by_date:bool, key_for_sort_by_date_reverse:bool, code_for_filter_by_currency:str) -> list:
+         key_for_sort_by_date:bool, key_for_sort_by_date_reverse:bool,
+         code_for_filter_by_currency:str, search_for_process_bank_search:str) -> list[dict]:
 
     """Отвечает за основную логику проекта и связывает функциональности между собой"""
     list_with_data = []
@@ -70,15 +68,15 @@ def main(file_with_operations:str, key_for_filter_by_state:str,
         list_after_sort = list_after_filter
 
     # Показывать рублевые транзакции. К generators.py - filter_by_currency
-    list_after_filter_by_currency = filter_by_currency(list_after_sort, code_for_filter_by_currency)
-    #
-    # # Показывает операции с фильтром по слову. К find_operation.py - process_bank_search
-    # if search_for_process_bank_search:
-    #     list_after_filter_by_word = process_bank_search(list_after_filter_by_currency, search_for_process_bank_search)
-    # else:
-    #     list_after_filter_by_word = list_after_filter_by_currency
+    list_after_filter_by_currency = list(filter_by_currency(list_after_sort, code_for_filter_by_currency))
 
-    return list_after_filter_by_currency
+    # Показывает операции с фильтром по слову. К find_operation.py - process_bank_search
+    if search_for_process_bank_search:
+        list_after_filter_by_word = process_bank_search(list_after_filter_by_currency, search_for_process_bank_search)
+    else:
+        list_after_filter_by_word = list_after_filter_by_currency
+
+    return list_after_filter_by_word
 
 
 ###########################################################################
@@ -198,18 +196,16 @@ while True:
 print()
 
 # #Показывает операции с фильтром по слову. К find_operation.py - process_bank_search
-# while True:
-#     answer_about_filter = input("Отфильтровать список транзакций по определенному слову? Да/Нет: ")
-#     if answer_about_filter.lower() == "да":
-#         search_for_process_bank_search = input("Укажите это слово: ")
-#         break
-#
-#     elif answer_about_filter.lower() == "нет":
-#         search_for_process_bank_search = False
-#         break
-#
-# print()
-# print(main(file_with_operations, key_for_filter_by_state, key_for_sort_by_date, key_for_sort_by_date_reverse, code_for_filter_by_currency, search_for_process_bank_search))
+while True:
+    answer_about_filter = input("Отфильтровать список транзакций по определенному слову? Да/Нет: ")
+    if answer_about_filter.lower() == "да":
+        search_for_process_bank_search = input("Укажите это слово: ")
+        break
 
+    elif answer_about_filter.lower() == "нет":
+        search_for_process_bank_search = False
+        break
 
-print(main(file_with_operations, key_for_filter_by_state, key_for_sort_by_date, key_for_sort_by_date_reverse, code_for_filter_by_currency))
+print()
+
+print(main(file_with_operations, key_for_filter_by_state, key_for_sort_by_date, key_for_sort_by_date_reverse, code_for_filter_by_currency, search_for_process_bank_search))

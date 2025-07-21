@@ -1,6 +1,5 @@
 import os
 from pathlib import Path
-from typing import Iterator
 
 from src.utils import load_transactions
 from src.reading_trans import reading_transaction
@@ -11,7 +10,7 @@ from src.find_operation import process_bank_search
 
 def main(file_with_operations:str, key_for_filter_by_state:str,
          key_for_sort_by_date:bool, key_for_sort_by_date_reverse:bool,
-         code_for_filter_by_currency:str, search_for_process_bank_search:str) -> list[dict]:
+         code_for_filter_by_currency:str, search_for_process_bank_search:str) -> any:
 
     """Отвечает за основную логику проекта и связывает функциональности между собой"""
     list_with_data = []
@@ -76,7 +75,10 @@ def main(file_with_operations:str, key_for_filter_by_state:str,
     else:
         list_after_filter_by_word = list_after_filter_by_currency
 
-    return list_after_filter_by_word
+    if len(list_after_filter_by_word) > 0:
+        return list_after_filter_by_word
+    else:
+        return f"Не найдено ни одной транзакции, подходящей под ваши условия фильтрации"
 
 
 ###########################################################################

@@ -37,13 +37,13 @@ def test_nonexistent_file():
     """Тест несуществующего файла"""
 
     result = load_transactions("nonexistent.json")
-    assert result == []
+    assert result == "Файл не существует или пустой"
 
 
 def test_directory_instead_of_file(to_dir_path):
     """Тест передачи директории вместо файла"""
     result = load_transactions(to_dir_path)
-    assert result == []
+    assert result == "Файл не существует или пустой"
 
 
 def test_successful_load():
@@ -64,14 +64,14 @@ def test_file_not_found():
     """Тест случая, когда файл не существует"""
     with patch("os.path.exists", return_value=False):
         result = load_transactions("missing.json")
-        assert result == []
+        assert result == "Файл не существует или пустой"
 
 
 def test_path_is_directory():
     """Тест случая, когда путь ведет к директории"""
     with patch("os.path.exists", return_value=True), patch("os.path.isfile", return_value=False):
         result = load_transactions("some_directory/")
-        assert result == []
+        assert result == "Файл не существует или пустой"
 
 
 def test_empty_file():
@@ -82,7 +82,7 @@ def test_empty_file():
         patch("os.path.getsize", return_value=0),
     ):
         result = load_transactions("empty.json")
-        assert result == []
+        assert result == "Файл пуст"
 
 
 def test_invalid_json():
@@ -109,4 +109,4 @@ def test_json_not_list():
         patch("builtins.open", mock_open(read_data=json.dumps(mock_data))),
     ):
         result = load_transactions("not_list.json")
-        assert result == []
+        assert result == "В файле нет списка"

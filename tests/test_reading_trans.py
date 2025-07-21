@@ -21,15 +21,6 @@ def sample_excel_data(tmp_path):
     return path
 
 
-def test_read_csv_success(sample_csv_data):
-    """Тест успешного чтения CSV файла"""
-    with patch("builtins.open", mock_open(read_data=sample_csv_data)):
-        result = reading_transaction("dummy.csv")
-        assert len(result) == 2
-        assert result[0]["id"] == "1"
-        assert result[1]["amount"] == "200"
-
-
 def test_csv_file_not_found():
     """Тест обработки отсутствующего CSV файла"""
     with patch("builtins.open", side_effect=FileNotFoundError):

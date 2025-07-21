@@ -1,6 +1,5 @@
 import os
 import re
-from pathlib import Path
 
 from src.reading_trans import reading_transaction
 

@@ -26,13 +26,13 @@ def process_bank_operations(data:list[dict], categories:list)-> list[Any]:
     return list_with_counter
 
 
-#Пример работы функции
-project_dir = Path(__file__).parent.parent
-data_dir = "data"
-file_name = "transactions_excel.xlsx"
-path_to_file = os.path.join(project_dir, data_dir, file_name)
-
-data_with_trans = reading_transaction(path_to_file)
-categories = ["Перевод организации", "Открытие вклада"]
-
-print(process_bank_operations(data_with_trans, categories))
+# #Пример работы функции
+# project_dir = Path(__file__).parent.parent
+# data_dir = "data"
+# file_name = "transactions_excel.xlsx"
+# path_to_file = os.path.join(project_dir, data_dir, file_name)
+#
+# data_with_trans = reading_transaction(path_to_file)
+# categories = ["Перевод организации", "Открытие вклада"]
+#
+# print(process_bank_operations(data_with_trans, categories))

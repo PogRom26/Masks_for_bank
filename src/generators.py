@@ -1,9 +1,10 @@
 import re
 from collections import Counter
-from typing import Iterator, List, Dict
+from typing import Iterator, List, Dict, Any, Generator
 
 
-def filter_by_currency(transactions: List[Dict], code: str = None) -> Iterator[Dict]:
+def filter_by_currency(transactions: List[Dict], code: str = None) -> Generator[
+    dict | dict[str, str] | str, None, None]:
     """Принимает на вход список словарей, представляющих транзакции.
     Возвращает итератор, выдающий транзакции, где валюта операции соответствует заданной (например, USD).
     Если код валюты не задан, возвращает все транзакции."""
@@ -21,7 +22,7 @@ def filter_by_currency(transactions: List[Dict], code: str = None) -> Iterator[D
             for t in transactions:
                 yield t
         else:
-            yield {"message": "Список операций пуст"}
+            yield "В списке операций отсутствует запрашиваемая валюта или список операций"
 
     # Код валюты указан
     else:
@@ -33,7 +34,7 @@ def filter_by_currency(transactions: List[Dict], code: str = None) -> Iterator[D
                 yield t
 
         if not found_any:
-            yield {"message": f"В списке операций отсутствуют транзакции с валютой {code}"}
+            yield "В списке операций отсутствует запрашиваемая валюта или список операций"
 
 
 def transaction_descriptions(transactions: list) -> any:

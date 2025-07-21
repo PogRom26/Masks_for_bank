@@ -24,30 +24,3 @@ def sort_by_date(list_with_dictions: list, key=lambda x: x["date"], reverse=True
 
     return sorted_list
 
-
-# Пример
-# from pathlib import Path
-# import os
-# from src.reading_trans import reading_transaction
-# from src.utils import load_transactions
-#
-# project_dir = Path(__file__).parent.parent
-# data_dir = "data"
-# data_folder = os.path.join(project_dir, data_dir)
-#
-# csv_files = [f.name for f in Path(data_folder).rglob('*.xlsx')]
-# file_name = "".join(csv_files)
-#
-# path_to_file = os.path.join(project_dir, data_dir, file_name)
-#
-# file = reading_transaction(path_to_file)
-# # file = load_transactions(path_to_file)
-# print(f"{file} это список из файла")
-# print()
-# print(path_to_file)
-#
-# # for row in file:
-# #     print(csv.)
-#
-# result = filter_by_state(file)
-# # print(f" Вот такой результат {result}")

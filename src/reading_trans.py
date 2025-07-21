@@ -31,20 +31,3 @@ def reading_transaction(path_to_file: str) -> list:
         print(f"Ошибка при чтении файла: {e}")
 
     return transactions
-
-# # #Пример
-# from pathlib import Path
-# import os
-# project_dir = Path(__file__).parent.parent
-# data_dir = "data"
-# data_folder = os.path.join(project_dir, data_dir)
-#
-# csv_files = [f.name for f in Path(data_folder).rglob('*.csv')]
-# file_name = "".join(csv_files)
-#
-# path_to_file = os.path.join(project_dir, data_dir, file_name)
-#
-#
-# print(reading_transaction(path_to_file))
-# print()
-# print(path_to_file)

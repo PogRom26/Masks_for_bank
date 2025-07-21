@@ -67,37 +67,3 @@ def card_number_generator(start=1, stop=9999999999999999):
             number = str(number).zfill(16)
             formatted_number = " ".join([number[i:i + 4] for i in range(0, len(number), 4)])
             yield formatted_number
-
-
-
-########################################### Пример
-# from pathlib import Path
-# import os
-# from src.reading_trans import reading_transaction
-# from src.utils import load_transactions
-#
-#
-# project_dir = Path(__file__).parent.parent
-# data_dir = "data"
-# data_folder = os.path.join(project_dir, data_dir)
-#
-# csv_files = [f.name for f in Path(data_folder).rglob('*.csv')]
-# file_name = "".join(csv_files)
-#
-# path_to_file = os.path.join(project_dir, data_dir, file_name)
-#
-# file = reading_transaction(path_to_file)
-# # file = load_transactions(path_to_file)
-#
-# # print(f"{file} это список из файла")
-# print()
-# # print(path_to_file)
-# #
-# result = list(filter_by_currency(file, "RUB"))
-# # # #
-# print(f" Вот такой результат {result}")
-
-#
-# for transaction in file:
-#     if transaction["operationAmount"]["currency"]["code"] == "RUB":
-#         print(transaction["operationAmount"]["currency"]["code"])

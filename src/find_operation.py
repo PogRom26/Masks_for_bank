@@ -20,12 +20,3 @@ def process_bank_search(data:list[dict], search:str = "")->list[dict]:
                     list_with_operation.append(item)
                     break
     return list_with_operation
-
-# Пример работы программы
-# project_dir = Path(__file__).parent.parent
-# data_dir = "data"
-# file_name = "transactions_excel.xlsx"
-# path_to_file = os.path.join(project_dir, data_dir, file_name)
-#
-# data = reading_transaction(path_to_file)
-# print(process_bank_search(data, "пере"))
